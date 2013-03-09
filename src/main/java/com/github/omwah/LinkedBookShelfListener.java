@@ -14,6 +14,8 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.DoubleChestInventory;
+import org.bukkit.inventory.Inventory;
 
 /*
  * Listens for clicks on bookshelves and then searches for chests to open for
@@ -48,17 +50,15 @@ public class LinkedBookShelfListener implements Listener {
         }
         
         Block bookshelf = event.getClickedBlock();
-        for (BlockFace face : BlockFace.values()) {
-            // Ignore any face not configured to be searched
-            if(check_faces.contains(face)) {
-                Block test_block = bookshelf.getRelative(face);
+        for (BlockFace face : check_faces) {
+            Block test_block = bookshelf.getRelative(face);
 
-                if(test_block.getType() == Material.CHEST) {
-                    // Open the chest to the player
-                    event.getPlayer().openInventory(((Chest)test_block.getState()).getBlockInventory());
-                    event.setCancelled(true);
-                    return;
-                }
+            if(test_block.getType() == Material.CHEST) {
+                // Open the chest to the player
+                Inventory chest_inv = ((Chest)test_block.getState()).getBlockInventory();
+                event.getPlayer().openInventory(chest_inv);
+                event.setCancelled(true);
+                return;
             }
         }
 
