@@ -1,22 +1,15 @@
 package com.github.omwah;
 
-import java.text.MessageFormat;
 import java.util.List;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.block.Chest;
-import org.bukkit.block.DoubleChest;
-
-import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.inventory.DoubleChestInventory;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 
 /*
  * Listens for clicks on bookshelves and then searches for chests to open for
@@ -54,12 +47,12 @@ public class LinkedBookShelfListener implements Listener {
         for (BlockFace face : check_faces) {
             Block test_block = bookshelf.getRelative(face);
 
-            if(test_block.getType() == Material.CHEST) {
-                // Open the chest to the player
+            if(test_block.getState() instanceof InventoryHolder) {
+                // Open the InventoryHolder to the player
                 // To make sure in the case of a double chest we get the double
                 // chest inventory and not the left or right side, we get the holder
                 // of the chest then the inventory of the holder
-                Inventory chest_inv = ((Chest)test_block.getState()).getBlockInventory().getHolder().getInventory();
+                Inventory chest_inv = ((InventoryHolder)test_block.getState()).getInventory().getHolder().getInventory();
                 event.getPlayer().openInventory(chest_inv);
                 event.setCancelled(true);
                 return;
