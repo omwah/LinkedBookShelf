@@ -1,0 +1,13 @@
+main: com.github.omwah.LinkedBookShelf
+name: ${project.name}
+version: ${project.version}
+author: Omwah
+description: ${project.description}
+permissions:
+  linkedbookshelf.*:
+    description: Give access to all LinkedBookShelf commands 
+    children:
+      linkedbookshelf.use: true
+  linkedbookshelf.use:
+    description: Allow access to bookshelves linked to chests
+    default: true
