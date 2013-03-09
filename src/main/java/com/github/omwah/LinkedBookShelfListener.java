@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Chest;
+import org.bukkit.block.DoubleChest;
 
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
@@ -55,7 +56,10 @@ public class LinkedBookShelfListener implements Listener {
 
             if(test_block.getType() == Material.CHEST) {
                 // Open the chest to the player
-                Inventory chest_inv = ((Chest)test_block.getState()).getBlockInventory();
+                // To make sure in the case of a double chest we get the double
+                // chest inventory and not the left or right side, we get the holder
+                // of the chest then the inventory of the holder
+                Inventory chest_inv = ((Chest)test_block.getState()).getBlockInventory().getHolder().getInventory();
                 event.getPlayer().openInventory(chest_inv);
                 event.setCancelled(true);
                 return;
