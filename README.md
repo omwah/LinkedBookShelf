@@ -1,23 +1,19 @@
-SampleBukkitPlugin
-======
+LinkedBookShelf
+===============
 
-This is a sample plug-in for the Bukkit API. It requires a CraftBukkit server.
-Bukkit can be found at [http://bukkit.org](http://bukkit.org) 
+A Bukkit plugin that allows bookshelves to be linked to adjacent blocks that contain 
+an inventory. When a player right clicks on a bookshelf, if there is a block touching it
+that has an inventory then that blocks inventory will be opened to the player.
 
-The goal of this sample plug-in is to provide a base for other plug-ins. This
-plugin has a main class named SamplePlugin, one CommandExecutor named
-SampleCommandExecutor and one Listener named SampleListener.
+This allows players to create usable bookshelves which can seemingly store items just
+by placing, for instance, a chest behind a bookshelf.
 
-<p>
-This plug-in provides the ability for a login message to be sent to players
-connecting. A player with the "sample.message" permissions can set the message.
-Ops by default have this permission.
-</p>
-
-<p>
-Originally this plugin was to serve as the basis of a Maven 3 Archetype for
-quickly building Bukkit plug-ins.
-</p>
+This approach is simple and does not require the use of database to serialize objects
+stored in a bookshelf. Additionally, if usage of the plugin were to be discontinued
+on a server then the player's items are still safe in the chests the bookshelves
+are linked with. Since the plugin does not touch the stored items, they are future
+proof from loosing added meta data in future versions of Minecraft that might not
+be explicitly handled by a plugin that would need to serialize inventory data.
 
 Compilation
 -----------
