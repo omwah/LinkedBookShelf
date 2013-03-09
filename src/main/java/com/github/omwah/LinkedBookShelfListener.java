@@ -18,13 +18,15 @@ import org.bukkit.inventory.InventoryHolder;
 public class LinkedBookShelfListener implements Listener {
     private final LinkedBookShelf plugin;
     List<BlockFace> check_faces;
+    List<Material> valid_holders;
 
     /*
      * This listener needs to know about the plugin which it came from
      */
-    public LinkedBookShelfListener(LinkedBookShelf plugin, List<BlockFace> check_faces) {
+    public LinkedBookShelfListener(LinkedBookShelf plugin, List<BlockFace> check_faces, List<Material> valid_holders) {
         this.plugin = plugin;
         this.check_faces = check_faces;
+        this.valid_holders = valid_holders;
         
         // Register the listener
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
@@ -46,8 +48,7 @@ public class LinkedBookShelfListener implements Listener {
         Block bookshelf = event.getClickedBlock();
         for (BlockFace face : check_faces) {
             Block test_block = bookshelf.getRelative(face);
-
-            if(test_block.getState() instanceof InventoryHolder) {
+            if(test_block.getState() instanceof InventoryHolder && valid_holders.contains(test_block.getType())) {
                 // Open the InventoryHolder to the player
                 // To make sure in the case of a double chest we get the double
                 // chest inventory and not the left or right side, we get the holder

@@ -4,3 +4,8 @@
 # Addtionally this defines the order that chests are searched
 # with the first one found being opened
 check_faces: [UP, DOWN, NORTH, SOUTH, EAST, WEST]
+
+# Defines which inventory holders are allowed to be linked
+# with a bookshelf. Supported names are:
+# BREWING_STAND, CHEST, DISPENSER, FURNACE
+valid_holders: [BREWING_STAND, CHEST, DISPENSER, FURNACE]
