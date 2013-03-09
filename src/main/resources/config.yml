@@ -1,4 +1,4 @@
-# List of Bukkit BlockFace directions to ignore. See JavaDoc for direction names:
+# List of Bukkit BlockFace directions check for a chest. See JavaDoc for direction names:
 # http://jd.bukkit.org/rb/apidocs/org/bukkit/block/BlockFace.html
 # Chests will not be used if found in these directions
-ignore_directions: []
+check_faces: [UP, DOWN, NORTH, SOUTH, EAST, WEST]
