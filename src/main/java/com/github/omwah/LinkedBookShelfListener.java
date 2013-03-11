@@ -53,9 +53,14 @@ public class LinkedBookShelfListener implements Listener {
                 // To make sure in the case of a double chest we get the double
                 // chest inventory and not the left or right side, we get the holder
                 // of the chest then the inventory of the holder
-                Inventory chest_inv = ((InventoryHolder)test_block.getState()).getInventory().getHolder().getInventory();
-                event.getPlayer().openInventory(chest_inv);
-                event.setCancelled(true);
+                if(event.getPlayer().hasPermission("linkedbookshelf.use")) {
+                    Inventory chest_inv = ((InventoryHolder)test_block.getState()).getInventory().getHolder().getInventory();
+                    event.getPlayer().openInventory(chest_inv);
+                    event.setCancelled(true);
+                } else {
+                    // Issue the permissions error message this way so at least the player get some feedback
+                    event.getPlayer().sendMessage("You must have the linkedbookshelf.use permission to use linked bookshelves");
+                }
                 return;
             }
         }
