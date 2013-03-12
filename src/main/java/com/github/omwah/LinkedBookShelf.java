@@ -1,11 +1,13 @@
 package com.github.omwah;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.mcstats.Metrics;
 
 /*
  * This is the main class of the plug-in
@@ -63,6 +65,14 @@ public class LinkedBookShelf extends JavaPlugin {
         
         // Create the SampleListener
         new LinkedBookShelfListener(this, check_faces, valid_holders);
+        
+        // Try and send metrics to MCStats
+        try {
+            Metrics metrics = new Metrics(this);
+            metrics.start();
+        } catch (IOException e) {
+            getLogger().log(Level.SEVERE, "Could not send data to MCStats!");
+        }
     }
     
     /*
