@@ -2,6 +2,8 @@
 =====
 * Add checking of permissions and a message to the player when they try to use a
   linked bookshelf without proper permissions.
+* Added usage of MCStats
+* Detect that the player is sneaking so shift clicking on a bookshelf lets you build
 
 0.1.0
 =====

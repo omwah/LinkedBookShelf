@@ -41,7 +41,7 @@ public class LinkedBookShelfListener implements Listener {
     public void onPlayerInteract(PlayerInteractEvent event) {
         // Quickly ignore everything but a right click on bookshelf
         Block clicked_block = event.getClickedBlock();
-        if(event.getAction() != Action.RIGHT_CLICK_BLOCK || clicked_block.getType() != Material.BOOKSHELF) {
+        if(event.getAction() != Action.RIGHT_CLICK_BLOCK || event.getPlayer().isSneaking() || clicked_block.getType() != Material.BOOKSHELF) {
             return;
         }
         
