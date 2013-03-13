@@ -1,3 +1,8 @@
+0.1.2
+=====
+* Send an event out before opening inventory holder so other plugins have a
+  chance to cancel it, for instance a container locking plugin
+
 0.1.1
 =====
 * Add checking of permissions and a message to the player when they try to use a
