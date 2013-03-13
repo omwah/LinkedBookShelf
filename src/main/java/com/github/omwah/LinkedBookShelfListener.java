@@ -45,17 +45,33 @@ public class LinkedBookShelfListener implements Listener {
             return;
         }
         
+        // Test each configured face in the order defined to see if there is a 
+        // valid block that can hold inventory
         Block bookshelf = event.getClickedBlock();
         for (BlockFace face : check_faces) {
             Block test_block = bookshelf.getRelative(face);
             if(test_block.getState() instanceof InventoryHolder && valid_holders.contains(test_block.getType())) {
-                // Open the InventoryHolder to the player
-                // To make sure in the case of a double chest we get the double
-                // chest inventory and not the left or right side, we get the holder
-                // of the chest then the inventory of the holder
+                
                 if(event.getPlayer().hasPermission("linkedbookshelf.use")) {
-                    Inventory chest_inv = ((InventoryHolder)test_block.getState()).getInventory().getHolder().getInventory();
-                    event.getPlayer().openInventory(chest_inv);
+                    // Send an a new event to indicate we are opening the InventoryHolder,
+                    // this way protection plugins have the ability to cancel our action
+                    PlayerInteractEvent open_event = 
+                            new PlayerInteractEvent(event.getPlayer(), event.getAction(), event.getItem(), 
+                            test_block, face.getOppositeFace());
+                    
+                    plugin.getServer().getPluginManager().callEvent(open_event);
+                    
+                    // Open the InventoryHolder to the player
+                    // To make sure in the case of a double chest we get the double
+                    // chest inventory and not the left or right side, we get the holder
+                    // of the chest then the inventory of the holder
+                    if(!open_event.isCancelled()) {
+                        Inventory chest_inv = ((InventoryHolder)test_block.getState()).getInventory().getHolder().getInventory();
+                        event.getPlayer().openInventory(chest_inv);
+                    }
+                    
+                    // Cancel original event since we handled things here, event if our
+                    // open_event is cancelled, we would still call cancel here
                     event.setCancelled(true);
                 } else {
                     // Issue the permissions error message this way so at least the player get some feedback
