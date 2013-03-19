@@ -1,3 +1,8 @@
+0.1.3
+=====
+* Add DROPPER, HOPPER, TRAPPED_CHEST to default list of containers to use
+  in config.yml
+
 0.1.2
 =====
 * Send an event out before opening inventory holder so other plugins have a
