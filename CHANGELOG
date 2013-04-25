@@ -2,6 +2,7 @@
 =====
 * Add DROPPER, HOPPER, TRAPPED_CHEST to default list of containers to use
   in config.yml
+* Add support for Ender Chests
 
 0.1.2
 =====
